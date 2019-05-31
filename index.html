@@ -52,7 +52,9 @@
     var compScore = 0;
     var CntDown = 9;
     var userGuess = 0;
-
+    var reset = 0
+    var lettersPressed = [];
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];  //math.floor rounds down...this code lets you pick a random index within an array
     // This function is run whenever the user presses a key. Also the start of an entire block of code:
     document.onkeyup = function(event) {
 
@@ -60,28 +62,42 @@
       var userGuess = event.key;
 
       if(computerChoices.indexOf(userGuess.toLowerCase()) < 0){
-        alert("Letter keys only!")} else{
+        alert("Letter keys only!")} else if(lettersPressed.indexOf(userGuess)===-1){
+            lettersPressed.push(userGuess);
+          console.log(lettersPressed);
         // Randomly chooses a choice from the options array. This is the Computer's guess:
-          var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];  //math.floor rounds down...this code lets you pick a random index within an array
     //console log computer choice?
 
+        // document.write(userGuess + "," + userGuess)
          
           //Scoring Rules (&& means "and")
           if (userGuess === computerGuess){
             userScore++;
             alert("You won!");
+            lettersPressed = [];
+            CntDown = 9;
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];  //math.floor rounds down...this code lets you pick a random index within an array
           }
           
           else {
-            CntDown--;          //Add in Until 0, then Loses++
-            userGuess;
-        }
+              if(CntDown > 0){
+            CntDown--;
+              } else {
+                  alert("Out of guesses sorry! Try again.");
+                lettersPressed = [];
+                CntDown = 9;
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];  //math.floor rounds down...this code lets you pick a random index within an array
+              }
+            }                           //Add in Until 0, then Loses++
+            
+            // userGuess = ()
+        
 
         //getElementById connects the JS var ex) var userGuess to the HTML <h2> text id=userGuessText
         document.getElementById("winText").innerText = userScore;
         document.getElementById("lossesText").innerText = compScore;
         document.getElementById("guessesLeftText").innerText = CntDown;
-        document.getElementById("guessesSoFarText").innerText = userGuess;
+        document.getElementById("guessesSoFarText").innerText = lettersPressed;
       }
     };
   </script>

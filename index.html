@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Psychic-Game</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div id="game">       <!--Bootstrap/HTML formatting-->
+   
+    <header>The Psychic-Game</header>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Guess what letter I'm thinking of!<strong></strong></span></h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+          <h2>Wins: <span id="winText"><strong></strong></span></h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Losses: <span id="lossesText"><strong></strong></span></h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Guesses Left: <span id="guessesLeftText"><strong></strong></span></h2>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <h2>Guesses So Far: <span id="guessesSoFarText"><strong></strong></span></h2>
+        </div>
+      </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+    // Creates an array that lists out all of the options (a-z).
+    var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var userScore = 0;
+    var compScore = 0;
+    var CntDown = 9;
+    var userGuess = 0;
+
+    // This function is run whenever the user presses a key. Also the start of an entire block of code:
+    document.onkeyup = function(event) {
+
+      // event.key is the key that the user pressed.
+      var userGuess = event.key;
+
+      if(computerChoices.indexOf(userGuess.toLowerCase()) < 0){
+        alert("Letter keys only!")} else{
+        // Randomly chooses a choice from the options array. This is the Computer's guess:
+          var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];  //math.floor rounds down...this code lets you pick a random index within an array
+    //console log computer choice?
+
+         
+          //Scoring Rules (&& means "and")
+          if (userGuess === computerGuess){
+            userScore++;
+            alert("You won!");
+          }
+          
+          else {
+            CntDown--;          //Add in Until 0, then Loses++
+            userGuess;
+        }
+
+        //getElementById connects the JS var ex) var userGuess to the HTML <h2> text id=userGuessText
+        document.getElementById("winText").innerText = userScore;
+        document.getElementById("lossesText").innerText = compScore;
+        document.getElementById("guessesLeftText").innerText = CntDown;
+        document.getElementById("guessesSoFarText").innerText = userGuess;
+      }
+    };
+  </script>
+
+</body>
+
+</html>
